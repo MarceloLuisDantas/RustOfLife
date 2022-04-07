@@ -12,9 +12,7 @@ fn main() {
     setup();
     let sleep_time = time::Duration::from_millis(50);
     let mut board = game::cria_board(65, 132);
-    let mut quit = false;
-    let mut step_by_step = false;
-    while !quit {
+    loop {
         for (linha, conteudo) in board.board.iter().enumerate() {
             let mut coluna = 0;
             for (_, celula) in conteudo.iter().enumerate() {
@@ -31,19 +29,8 @@ fn main() {
             }
         }
         refresh();
-
-        // let key = getch();
-        // match key as u8 as char {
-        //     'q' => quit = true,
-        //     'b' => board.voltar_geracao(),
-        //     'n' => board.next_generation(vec![3], vec![2, 3]),
-        //     'p' => step_by_step = !step_by_step,
-        //     _ => { }
-        // }
-        if !step_by_step {
-            board.next_generation(vec![3], vec![2, 3]);
-            thread::sleep(sleep_time);
-        }
+        board.next_generation(vec![3], vec![2, 3]);
+        thread::sleep(sleep_time);
     }
     endwin();
 }
